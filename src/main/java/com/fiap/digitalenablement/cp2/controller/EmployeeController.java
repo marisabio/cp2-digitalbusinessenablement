@@ -8,6 +8,7 @@ import com.fiap.digitalenablement.cp2.repository.EmployeeRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -64,6 +65,13 @@ public class EmployeeController {
     public ResponseEntity delete(@PathVariable Long employee_id) {
         repository.deleteById(employee_id);
         return  ResponseEntity.ok().body("Employee " + employee_id + " deleted.");
+    }
+
+    @GetMapping("/average_salary/{department_name}")
+    @Operation(summary = "Employee average salary.", description = "Endpoint for reading the average employee salary by department.")
+    public ResponseEntity averageSalary(@PathVariable String department_name) {
+        var averageSalary = repository.findByAverageEmployeeSalary(department_name);
+        return ResponseEntity.ok().body("The department average salary is " + averageSalary);
     }
 
 }

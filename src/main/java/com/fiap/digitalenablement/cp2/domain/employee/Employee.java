@@ -22,7 +22,7 @@ public class Employee {
     private String employee_manager;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "name_department")
+    @JoinColumn(name = "department_name")
     private Department department;
 
     public Employee(EmployeeRegistration data) {

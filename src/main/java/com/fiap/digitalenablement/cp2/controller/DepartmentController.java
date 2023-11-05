@@ -49,6 +49,13 @@ public class DepartmentController {
         return ResponseEntity.ok(new DepartmentListing(department));
     }
 
+    @GetMapping("/{department_name}")
+    @Operation(summary = "Department display by name", description = "Endpoint for reading a single department by name.")
+    public ResponseEntity displayByName(@PathVariable String department_name) {
+        var department = repository.findByNameEquals(department_name);
+        return ResponseEntity.ok(new DepartmentListing(department));
+    }
+
     @PutMapping
     @Transactional
     @Operation(summary = "Department update", description = "Endpoint for updating a department.")
